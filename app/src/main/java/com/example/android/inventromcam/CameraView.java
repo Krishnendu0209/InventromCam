@@ -2,6 +2,7 @@ package com.example.android.inventromcam;
 
 /**
  * Created by Krishnendu on 11-08-2017.
+ * It is implemented to cast the image preview of the camera to device screen
  */
 
 import android.hardware.Camera;
@@ -66,10 +67,3 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         mCamera.release();
     }
 }
-
-
-
-
-
-
-

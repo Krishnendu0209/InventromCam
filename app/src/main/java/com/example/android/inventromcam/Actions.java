@@ -14,16 +14,16 @@ import android.widget.TextView;
 
 /**
  * Created by Krishnendu on 11-08-2017.
+ * Action fragment that handles the click event of the explicit camera
  */
 
 public class Actions extends Fragment {
-    String phoneNumber;
     View myView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment_main, container, false);
-        Button click=(Button)myView.findViewById(R.id.click); //connecting the button of the xml file.
+        myView = inflater.inflate(R.layout.fragment_main, container, false); //connecting the fragment_main (xml file)
+        Button click=(Button)myView.findViewById(R.id.click); //connecting the click button of the xml file.
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +34,6 @@ public class Actions extends Fragment {
             }
         });
 
-        return myView;
+        return myView;  //returning the view
     }
 }
