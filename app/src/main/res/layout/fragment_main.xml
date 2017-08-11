@@ -37,6 +37,9 @@ Our cloud platform helps them control and monitor the products over the internet
         android:layout_height="wrap_content"
         android:text="Click Picture"
         android:id="@+id/click"
+        android:textColor="#3F51B5"
+        android:textSize="15dp"
+        android:fontFamily="monospace"
         android:layout_below="@+id/about"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
