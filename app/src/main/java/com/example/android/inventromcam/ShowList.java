@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.io.File;
 
 /**
  * Created by Krishnendu on 12-Aug-17.
+ * Fragment that handles and displays all the file names as a list, present in the user designated folder
  */
 
 public class ShowList extends Fragment {
@@ -24,7 +24,7 @@ public class ShowList extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_show_list, container, false);
         TextView tv=(TextView)rootView.findViewById(R.id.name_list);
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Documents_Inventrom".toString();  // path where files have been saved
-        
+
         File f = new File(path);
         if (!f.exists ())   //if directory doesn't exist then create it
             f.mkdir();

@@ -6,6 +6,7 @@ package com.example.android.inventromcam;
  */
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,8 @@ import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static java.security.AccessController.getContext;
 
 public class CameraTest extends AppCompatActivity {
 
@@ -157,6 +160,16 @@ public class CameraTest extends AppCompatActivity {
                             }
                             out.flush();
                             out.close();
+                            Toast.makeText(getApplicationContext(), "File and image has been saved", Toast.LENGTH_LONG).show();
+
+                            //Display the graph along with the reset button that return to the main activity
+                            //Start the new activity to handle the graph display
+
+                            Intent intent = new Intent(getApplicationContext(), Graph_Reset.class);//The CameraTest class has the explicit intent to implement the app's camera
+                            intent.setData(null); //no data required to be operated on
+                            startActivity(intent); //start activity
+                            finish();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
