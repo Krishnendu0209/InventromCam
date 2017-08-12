@@ -24,8 +24,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.hardware.Camera.PictureCallback;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -95,10 +99,10 @@ public class CameraTest extends AppCompatActivity {
                 //connect with the dialog box detail_dialog through the synchronisation of the components of the dialog box
 
                 final EditText temp_name=(EditText)dialog.findViewById(R.id.name);
-                EditText temp_age=(EditText)dialog.findViewById(R.id.age);
-                EditText temp_address=(EditText)dialog.findViewById(R.id.address);
-                RadioButton male=(RadioButton)dialog.findViewById(R.id.male);
-                RadioButton female=(RadioButton)dialog.findViewById(R.id.female);
+                final EditText temp_age=(EditText)dialog.findViewById(R.id.age);
+                final EditText temp_address=(EditText)dialog.findViewById(R.id.address);
+                final RadioButton male=(RadioButton)dialog.findViewById(R.id.male);
+                final RadioButton female=(RadioButton)dialog.findViewById(R.id.female);
 
                 //fetching the details provided by the user and storing the details accordingly
                 name=temp_name.getText().toString();
@@ -121,6 +125,41 @@ public class CameraTest extends AppCompatActivity {
                         saveImage(bitmap,temp_name.getText().toString());    //saving the bitmap image to the device's internal memory according to the name inputted by the user
                         capturedImageHolder.setImageBitmap(scaleDownBitmapImage(bitmap, 300, 200));  //casting the image to the imageview
 
+                        //Saving the details to an internal file
+                        File myDir = new File( Environment.getExternalStorageDirectory(),File.separator+"Documents_Inventrom");//Folder name where he file will be created
+                        Log.v("File path",": "+myDir);    //logging the file path
+                        myDir.mkdirs(); //creating the directory
+
+                        String fname = temp_name.getText().toString() + ".txt";        //file name is set as per the name received as input from the user followed by the device time
+                        File file = new File (myDir, fname);   //creating the new file as per the above mentioned rules
+                        if (file.exists ()) file.delete ();    //checking whether the file exists or not if yes then remove it
+                        try {
+                            FileWriter fileWriter = new FileWriter(file); //file writer created
+                            BufferedWriter out= new BufferedWriter(fileWriter);  //from input buffer data is being fetched
+                            for(int i=1;i<=15;i++)
+                            {
+                                out.newLine();
+                            }
+
+                            out.write("Name is:     "+temp_name.getText().toString());  //name is fetched and is getting written
+                            out.newLine();
+                            out.write("Age is:     "+temp_age.getText().toString());   //age is fetched and is getting written
+                            out.newLine();
+                            out.write("Address is:     "+temp_address.getText().toString());   //address is fetched and is getting written
+                            out.newLine();
+                            if(male.isChecked())
+                            {
+                                out.write("Gender is:     male");
+                            }
+                            else if(female.isChecked())
+                            {
+                                out.write("Gender is:     female"); //closing the input buffer
+                            }
+                            out.flush();
+                            out.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
